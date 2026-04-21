@@ -19,7 +19,7 @@ export default function ForgotPassword() {
         className="auth__form"
         onSubmit={(e) => {
           e.preventDefault()
-          navigate('/recovery-code')
+          navigate('/recovery-code/code')
         }}
       >
         <div className="auth__field">

@@ -37,7 +37,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/recovery-code" element={<RecoveryCode />} />
+        <Route path="/recovery-code" element={<Navigate to="/recovery-code/code" replace />} />
+        <Route path="/recovery-code/:step" element={<RecoveryCode />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/mobile" element={<MobileShowcase />} />

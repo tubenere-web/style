@@ -1,11 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Mail, Lock, Eye, EyeOff, RefreshCw } from 'lucide-react'
 import AuthShell from '../components/AuthShell.jsx'
 
+const RECOVERY_STEPS = ['code', 'new-password']
+
 export default function RecoveryCode() {
+  const { step: stepParam } = useParams()
+  const step = String(stepParam || '')
   const [code, setCode] = useState(['', '', '', '', '', ''])
-  const [step, setStep] = useState('code')
   const [show, setShow] = useState(false)
   const [timer, setTimer] = useState(54)
   const inputs = useRef([])
@@ -31,27 +34,39 @@ export default function RecoveryCode() {
     }
   }
 
+  if (!RECOVERY_STEPS.includes(step)) {
+    return <Navigate to="/recovery-code/code" replace />
+  }
+
+  const isCodeStep = step === 'code'
+
   return (
     <AuthShell
-      title={step === 'code' ? 'Введи код из письма' : 'Придумай новый пароль'}
+      title={isCodeStep ? 'Введи код из письма' : 'Придумай новый пароль'}
       subtitle={
-        step === 'code'
+        isCodeStep
           ? 'Мы отправили шестизначный код на vika.koval@example.ru. Он действует 10 минут и используется один раз.'
           : 'Код принят. Задай новый пароль — после сохранения автоматически войдём в аккаунт.'
       }
       footer={
-        <>
-          Не пришёл код?{' '}
-          <Link to="/forgot-password">Проверить адрес почты</Link>
-        </>
+        isCodeStep ? (
+          <>
+            Не пришёл код? <Link to="/forgot-password">Проверить адрес почты</Link>
+          </>
+        ) : (
+          <>
+            Ввести код заново?{' '}
+            <Link to="/recovery-code/code">Вернуться к коду</Link>
+          </>
+        )
       }
     >
-      {step === 'code' ? (
+      {isCodeStep ? (
         <form
           className="auth__form"
           onSubmit={(e) => {
             e.preventDefault()
-            setStep('reset')
+            navigate('/recovery-code/new-password')
           }}
         >
           <div className="auth__field">
