@@ -1878,3 +1878,193 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== Wireframe (только ?wire=1) — схема для экспорта в Figma ========== */
+.pl-wireframe-banner {
+  position: sticky;
+  top: 0;
+  z-index: 210;
+  margin: 0 max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px dashed #6a6a70;
+  background: #e4e4e8;
+  color: #2e2e32;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.pl-wireframe-banner strong {
+  font-weight: 700;
+}
+
+.pl-wireframe-banner__code {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #cfcfd4;
+}
+
+.pl.pl--wireframe {
+  --pl-bg0: #d6d6da;
+  --pl-bg1: #dedee2;
+  --pl-fg: #1e1e22;
+  --pl-muted: #4a4a52;
+  --pl-dim: #6a6a72;
+  --pl-line: rgba(0, 0, 0, 0.18);
+  --pl-glow: #888892;
+  --pl-mint: #909098;
+  --pl-rose: #9a9aa2;
+  --pl-card: #ececee;
+  --pl-glass: rgba(255, 255, 255, 0.55);
+  background: linear-gradient(180deg, #d4d4d8 0%, #c8c8ce 100%);
+}
+
+.pl.pl--wireframe .pl__aurora,
+.pl.pl--wireframe .pl__noise {
+  display: none;
+}
+
+.pl.pl--wireframe .pl-hero__accent {
+  background: none;
+  color: #3a3a42;
+  -webkit-text-fill-color: #3a3a42;
+}
+
+.pl.pl--wireframe svg {
+  color: #4a4a52;
+}
+
+.pl.pl--wireframe .pl-header__inner,
+.pl.pl--wireframe .pl-btn--primary,
+.pl.pl--wireframe .pl-btn--ghost,
+.pl.pl--wireframe .pl-btn--line,
+.pl.pl--wireframe .pl-tab.active {
+  background: #e8e8ec;
+  color: #222;
+  border-color: #9a9aa0;
+  box-shadow: none;
+}
+
+.pl.pl--wireframe .pl-btn--primary {
+  background: #ddd;
+  border: 1px solid #888;
+}
+
+.pl.pl--wireframe .pl-tab.active {
+  background: #ccc;
+  color: #111;
+}
+
+.pl.pl--wireframe .pl-merge-card__icon {
+  background: #d0d0d6 !important;
+  color: #444 !important;
+}
+
+.pl.pl--wireframe .pl-kicker--accent {
+  color: #444;
+}
+
+.pl.pl--wireframe .pl-quote__box {
+  background: #e2e2e6;
+  border-style: dashed;
+}
+
+.pl.pl--wireframe .pl-cta-band {
+  background: #dcdce0;
+  border-style: dashed;
+}
+
+.pl.pl--wireframe .pl-story__card--solve {
+  background: #e0e0e4;
+}
+
+.pl.pl--wireframe .pl-hero__orb {
+  background: radial-gradient(circle at 50% 50%, #c0c0c8 0%, transparent 60%);
+  opacity: 0.9;
+  filter: none;
+}
+
+.pl.pl--wireframe .pl-hero__ring {
+  border-color: #909098 !important;
+  box-shadow: none !important;
+}
+
+.pl.pl--wireframe .pl-paper {
+  background: #e6e6ea;
+  border: 1px dashed #888;
+  box-shadow: none;
+}
+
+.pl.pl--wireframe .pl-paper__main {
+  background: #f2f2f4;
+  border: 1px solid #aaa;
+}
+
+.pl.pl--wireframe .pl-paper__photo {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ddd,
+    #ddd 8px,
+    #e8e8ea 8px,
+    #e8e8ea 16px
+  );
+}
+
+.pl.pl--wireframe .pl-wire-slot {
+  width: 100%;
+  min-height: 140px;
+  border-radius: var(--radius-md);
+  border: 1px dashed #909098;
+  background: repeating-linear-gradient(
+    -45deg,
+    #d8d8de,
+    #d8d8de 10px,
+    #e4e4e8 10px,
+    #e4e4e8 20px
+  );
+}
+
+.pl.pl--wireframe .pl-wire-slot--wide {
+  min-height: 220px;
+  max-height: 280px;
+}
+
+.pl.pl--wireframe .pl-wire-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: #dadade;
+  border: 1px dashed #777;
+  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pl.pl--wireframe .pl-wire-demo--laptop {
+  min-height: min(480px, 52vh);
+}
+
+.pl.pl--wireframe .pl-wire-demo--phone {
+  min-height: 0;
+}
+
+.pl.pl--wireframe .pl-store .pl-store__icon,
+.pl.pl--wireframe .pl-store--apple .pl-store__icon,
+.pl.pl--wireframe .pl-store--google .pl-store__icon {
+  mask: none;
+  background: #b8b8c0 !important;
+  border-radius: 6px;
+}
+
+.pl.pl--wireframe .pl-code {
+  background: #d0d0d6;
+  border-color: #999;
+  color: #222;
+}

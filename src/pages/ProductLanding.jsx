@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight,
@@ -98,7 +98,20 @@ const NAV_LINKS = [
   { href: '#pl-7', label: 'Скачать' },
 ]
 
+/** Якорь с сохранением ?wire=1 для режима wireframe */
+function wireHash(wireframe, hash) {
+  if (!wireframe || !hash.startsWith('#')) return hash
+  return `?wire=1${hash}`
+}
+
+const homeLinkTo = (wireframe) =>
+  wireframe ? ({ pathname: '/', search: 'wire=1' }) : '/'
+
 export default function ProductLanding() {
+  const [searchParams] = useSearchParams()
+  const wireframe =
+    searchParams.get('wire') === '1' || searchParams.get('wireframe') === '1'
+
   const narrowDemo = useNarrowDemo()
   const [navOpen, setNavOpen] = useState(false)
   const [demo, setDemo] = useState('dash')
@@ -129,17 +142,33 @@ export default function ProductLanding() {
     }
   }, [navOpen])
 
+  useEffect(() => {
+    if (!wireframe) return
+    const t = document.title
+    document.title = 'Тихо — wireframe (экспорт)'
+    return () => {
+      document.title = t
+    }
+  }, [wireframe])
+
   return (
-    <div className="pl">
+    <div className={`pl${wireframe ? ' pl--wireframe' : ''}`}>
       <div className="pl__aurora" aria-hidden="true" />
       <div className="pl__noise" aria-hidden="true" />
 
+      {wireframe && (
+        <div className="pl-wireframe-banner" role="status">
+          <strong>Wireframe</strong> — только раскладка для Figma: без фото, без живого демо. Обычный
+          сайт: откройте главную без <code className="pl-wireframe-banner__code">?wire=1</code>
+        </div>
+      )}
+
       <header className={`pl-header ${navOpen ? 'pl-header--open' : ''}`}>
         <div className="pl-header__inner">
-          <Logo to="/" inverse />
+          <Logo to={homeLinkTo(wireframe)} inverse />
           <nav className="pl-header__nav pl-header__nav--desktop" aria-label="Разделы страницы">
             {NAV_LINKS.map(({ href, label }) => (
-              <a key={href} href={href}>
+              <a key={href} href={wireHash(wireframe, href)}>
                 {label}
               </a>
             ))}
@@ -148,7 +177,7 @@ export default function ProductLanding() {
             <Link to="/onboarding/1" className="pl-link">
               Онбординг
             </Link>
-            <a href="#pl-7" className="pl-btn pl-btn--primary">
+            <a href={wireHash(wireframe, '#pl-7')} className="pl-btn pl-btn--primary">
               Скачать
               <ArrowRight size={18} strokeWidth={2} />
             </a>
@@ -170,7 +199,7 @@ export default function ProductLanding() {
             {NAV_LINKS.map(({ href, label }) => (
               <a
                 key={href}
-                href={href}
+                href={wireHash(wireframe, href)}
                 onClick={() => {
                   closeNav()
                 }}
@@ -183,7 +212,7 @@ export default function ProductLanding() {
             <Link to="/onboarding/1" className="pl-btn pl-btn--ghost" onClick={closeNav}>
               Онбординг
             </Link>
-            <a href="#pl-7" className="pl-btn pl-btn--primary" onClick={closeNav}>
+            <a href={wireHash(wireframe, '#pl-7')} className="pl-btn pl-btn--primary" onClick={closeNav}>
               Скачать
               <ArrowRight size={18} strokeWidth={2} />
             </a>
@@ -251,7 +280,7 @@ export default function ProductLanding() {
               </a>
             </div>
             <div className="pl-hero__subcta">
-              <a href="#pl-4" className="pl-btn pl-btn--ghost">
+              <a href={wireHash(wireframe, '#pl-4')} className="pl-btn pl-btn--ghost">
                 <Monitor size={18} /> К полноэкранному демо
               </a>
               <Link to="/onboarding/1" className="pl-btn pl-btn--line">
@@ -270,7 +299,11 @@ export default function ProductLanding() {
             <div className="pl-paper" data-theme="light">
               <div className="pl-paper__main">
                 <div className="pl-paper__photo" aria-hidden="true">
-                  <img src={mascotEmotion} alt="" />
+                  {wireframe ? (
+                    <div className="pl-wire-slot pl-wire-slot--photo" />
+                  ) : (
+                    <img src={mascotEmotion} alt="" />
+                  )}
                 </div>
                 <div className="pl-paper__row">
                   <span className="pl-paper__muted">сегодня, вечер</span>
@@ -328,7 +361,7 @@ export default function ProductLanding() {
           </div>
         </div>
 
-        <a href="#pl-2" className="pl-scroll" aria-label="Дальше">
+        <a href={wireHash(wireframe, '#pl-2')} className="pl-scroll" aria-label="Дальше">
           <ChevronDown size={22} />
         </a>
       </section>
@@ -421,12 +454,18 @@ export default function ProductLanding() {
               <div className="pl-phone pl-phone--demo">
                 <div className="pl-phone__notch" aria-hidden />
                 <div className="pl-phone__screen">
-                  <iframe
-                    title="Демо Тихо — мобильный экран"
-                    src={iframeSrc}
-                    className="pl-iframe pl-iframe--phone"
-                    key={iframeSrc}
-                  />
+                  {wireframe ? (
+                    <div className="pl-wire-demo pl-wire-demo--phone">
+                      <span>интерактив выкл.</span>
+                    </div>
+                  ) : (
+                    <iframe
+                      title="Демо Тихо — мобильный экран"
+                      src={iframeSrc}
+                      className="pl-iframe pl-iframe--phone"
+                      key={iframeSrc}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -436,12 +475,18 @@ export default function ProductLanding() {
                 <div className="pl-laptop__lid">
                   <div className="pl-laptop__cam" aria-hidden />
                   <div className="pl-laptop__screen">
-                    <iframe
-                      title="Демо Тихо — экран ноутбука"
-                      src={iframeSrc}
-                      className="pl-iframe"
-                      key={iframeSrc}
-                    />
+                    {wireframe ? (
+                      <div className="pl-wire-demo pl-wire-demo--laptop">
+                        <span>интерактив выкл.</span>
+                      </div>
+                    ) : (
+                      <iframe
+                        title="Демо Тихо — экран ноутбука"
+                        src={iframeSrc}
+                        className="pl-iframe"
+                        key={iframeSrc}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="pl-laptop__base" />
@@ -495,7 +540,7 @@ export default function ProductLanding() {
         <div className="pl-merge-how">
           <div className="pl-merge-how__media" data-theme="light">
             <div className="pl-merge-how__img">
-              <img src={mascotPlan} alt="" />
+              {wireframe ? <div className="pl-wire-slot pl-wire-slot--wide" /> : <img src={mascotPlan} alt="" />}
             </div>
           </div>
           <div className="pl-merge-how__copy">
@@ -535,7 +580,7 @@ export default function ProductLanding() {
               <Link to="/onboarding/1" className="pl-btn pl-btn--primary">
                 Онбординг <ArrowRight size={18} />
               </Link>
-              <a href="#pl-4" className="pl-btn pl-btn--ghost">
+              <a href={wireHash(wireframe, '#pl-4')} className="pl-btn pl-btn--ghost">
                 <Smartphone size={18} /> К демо на этом экране
               </a>
             </div>
@@ -609,12 +654,12 @@ export default function ProductLanding() {
         </div>
 
         <footer className="pl-footer">
-          <Logo to="/" inverse />
+          <Logo to={homeLinkTo(wireframe)} inverse />
           <div className="pl-footer__links">
             <Link to="/terms">Соглашение</Link>
             <Link to="/privacy">Персональные данные</Link>
             <Link to="/legacy">Первый лендинг</Link>
-            <a href="#pl-4">Интерактивное демо</a>
+            <a href={wireHash(wireframe, '#pl-4')}>Интерактивное демо</a>
           </div>
           <p className="pl-footer__copy">© 2026 «Тихо». Не заменяет консультацию специалиста.</p>
         </footer>
