@@ -17,8 +17,9 @@ export default function DocShell({ title, meta, sections, siblings }) {
         <Logo />
         <nav className="doc__nav">
           <Link to="/">На главную</Link>
-          <Link to="/terms">Соглашение</Link>
-          <Link to="/privacy">Персональные данные</Link>
+          <Link to="/terms">Условия использования</Link>
+          <Link to="/privacy">Политика конфиденциальности</Link>
+          <Link to="/personal-data">Обработка персональных данных</Link>
         </nav>
         <ThemeToggle />
       </header>

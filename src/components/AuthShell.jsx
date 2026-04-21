@@ -63,8 +63,9 @@ export default function AuthShell({ title, subtitle, children, footer }) {
 
         <div className="auth__aside-foot">
           <span>© 2026 Тихо</span>
-          <Link to="/terms">Соглашение</Link>
-          <Link to="/privacy">Конфиденциальность</Link>
+          <Link to="/terms">Условия использования</Link>
+          <Link to="/privacy">Политика конфиденциальности</Link>
+          <Link to="/personal-data">Обработка персональных данных</Link>
         </div>
       </aside>
 

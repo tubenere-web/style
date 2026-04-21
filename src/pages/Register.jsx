@@ -92,8 +92,9 @@ export default function Register() {
         <label className="auth__checkbox">
           <input type="checkbox" defaultChecked />
           <span>
-            Принимаю <Link to="/terms">пользовательское соглашение</Link> и
-            согласен на <Link to="/privacy">обработку персональных данных</Link>.
+            Принимаю <Link to="/terms">условия использования</Link>, ознакомлен с{' '}
+            <Link to="/privacy">политикой конфиденциальности</Link> и даю согласие на{' '}
+            <Link to="/personal-data">обработку персональных данных</Link>.
           </span>
         </label>
 

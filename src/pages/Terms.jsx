@@ -77,7 +77,7 @@ const sections = [
 export default function Terms() {
   return (
     <DocShell
-      title="Пользовательское соглашение"
+      title="Условия использования"
       meta={[
         { value: 'ред. 2.4', label: 'действует' },
         { value: '14 апр 2026', label: 'обновлено' },
@@ -85,7 +85,8 @@ export default function Terms() {
       ]}
       sections={sections}
       siblings={[
-        { to: '/privacy', label: 'Обработка персональных данных' },
+        { to: '/privacy', label: 'Политика конфиденциальности' },
+        { to: '/personal-data', label: 'Обработка персональных данных' },
       ]}
     />
   )

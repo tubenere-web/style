@@ -318,8 +318,9 @@ export default function LegacyLanding() {
       <footer className="landing__footer">
         <Logo size="sm" />
         <div className="landing__footer-links">
-          <Link to="/terms">Пользовательское соглашение</Link>
-          <Link to="/privacy">Обработка персональных данных</Link>
+          <Link to="/terms">Условия использования</Link>
+          <Link to="/privacy">Политика конфиденциальности</Link>
+          <Link to="/personal-data">Обработка персональных данных</Link>
           <Link to="/#pl-4">Интерактивное демо</Link>
         </div>
         <div className="muted landing__footer-copy">

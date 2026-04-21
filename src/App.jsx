@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx'
 import RecoveryCode from './pages/RecoveryCode.jsx'
 import Terms from './pages/Terms.jsx'
 import Privacy from './pages/Privacy.jsx'
+import PersonalData from './pages/PersonalData.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 import Dashboard from './pages/app/Dashboard.jsx'
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/recovery-code/:step" element={<RecoveryCode />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/personal-data" element={<PersonalData />} />
         <Route path="/mobile" element={<MobileShowcase />} />
 
         <Route path="/app" element={<AppLayout />}>

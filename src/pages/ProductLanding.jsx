@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   ArrowRight,
   Activity,
@@ -21,7 +22,56 @@ import { mascotEmotion, mascotPlan } from '../assets/illustrations.js'
 import { appUrl } from '../utils/appUrl.js'
 import './ProductLanding.css'
 
-/** Временно без анимаций появления — статичный контент для экспорта (Figma html-to-design и т.п.). */
+const EASE = [0.16, 1, 0.3, 1]
+
+/** Секция с плавным появлением при скролле (`wireframe` и `prefers-reduced-motion` — без анимации). */
+function PlSection({ id, className, children, staticLanding, delay = 0, ...rest }) {
+  if (staticLanding) {
+    return (
+      <section id={id} className={className} {...rest}>
+        {children}
+      </section>
+    )
+  }
+  return (
+    <motion.section
+      id={id}
+      className={className}
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-48px 0px -64px 0px' }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      {...rest}
+    >
+      {children}
+    </motion.section>
+  )
+}
+
+/** Дочерний блок с задержкой по индексу (карточки сеток и т.п.). */
+function PlStagger({ staticLanding, index, className, children, as = 'div', ...rest }) {
+  if (staticLanding) {
+    const Tag = as
+    return (
+      <Tag className={className} {...rest}>
+        {children}
+      </Tag>
+    )
+  }
+  const MotionTag = as === 'article' ? motion.article : motion.div
+  return (
+    <MotionTag
+      className={className}
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-28px' }}
+      transition={{ duration: 0.5, delay: index * 0.07, ease: EASE }}
+      {...rest}
+    >
+      {children}
+    </MotionTag>
+  )
+}
 
 const DEMO_TABS = [
   { id: 'dash', label: 'Главная', seg: 'dashboard' },
@@ -111,6 +161,9 @@ export default function ProductLanding() {
   const [searchParams] = useSearchParams()
   const wireframe =
     searchParams.get('wire') === '1' || searchParams.get('wireframe') === '1'
+
+  const reduceMotion = useReducedMotion()
+  const staticLanding = wireframe || reduceMotion
 
   const narrowDemo = useNarrowDemo()
   const [navOpen, setNavOpen] = useState(false)
@@ -230,7 +283,7 @@ export default function ProductLanding() {
       </header>
 
       {/* ===== БЛОК 1 — Hero + вставка KPI из реального дашборда ===== */}
-      <section id="pl-1" className="pl-block pl-block--hero" aria-labelledby="pl-h1">
+      <PlSection id="pl-1" className="pl-block pl-block--hero" staticLanding={staticLanding} aria-labelledby="pl-h1">
         <div className="pl-block__tag">
           <span className="pl-block__num">01</span> / 07
         </div>
@@ -364,10 +417,10 @@ export default function ProductLanding() {
         <a href={wireHash(wireframe, '#pl-2')} className="pl-scroll" aria-label="Дальше">
           <ChevronDown size={22} />
         </a>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 2 — анимированные метрики ===== */}
-      <section id="pl-2" className="pl-block pl-block--stats">
+      <PlSection id="pl-2" className="pl-block pl-block--stats" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">02</span> / 07
         </div>
@@ -382,47 +435,55 @@ export default function ProductLanding() {
             { end: 24, suf: '', label: 'материала', sub: 'в библиотеке' },
             { end: 0, suf: '₽', label: 'рекламы', sub: 'внутри интерфейса' },
             { end: 100, suf: '%', label: 'контроля', sub: 'над своими данными' },
-          ].map((s) => (
-            <div key={s.label} className="pl-stat-card">
+          ].map((s, i) => (
+            <PlStagger key={s.label} staticLanding={staticLanding} index={i} className="pl-stat-card">
               <div className="pl-stat-card__value">
                 <AnimatedNumber end={s.end} suffix={s.suf} />
               </div>
               <div className="pl-stat-card__label">{s.label}</div>
               <div className="pl-stat-card__sub">{s.sub}</div>
-            </div>
+            </PlStagger>
           ))}
         </div>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 3 — история ===== */}
-      <section id="pl-3" className="pl-block pl-block--story">
+      <PlSection id="pl-3" className="pl-block pl-block--story" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">03</span> / 07
         </div>
         <div className="pl-story">
           <div className="pl-story__grid">
-            <div className="pl-story__card pl-story__card--problem">
+            <PlStagger
+              staticLanding={staticLanding}
+              index={0}
+              className="pl-story__card pl-story__card--problem"
+            >
               <span className="pl-kicker">Проблема</span>
               <h2>Лента съедает внимание — тревога приходит незаметно</h2>
               <p>
                 Таймеры винят; психолог не всегда онлайн. Нужен ежедневный слой между вами и
                 телефоном — без шума и давления.
               </p>
-            </div>
-            <div className="pl-story__card pl-story__card--solve">
+            </PlStagger>
+            <PlStagger
+              staticLanding={staticLanding}
+              index={1}
+              className="pl-story__card pl-story__card--solve"
+            >
               <span className="pl-kicker pl-kicker--accent">Ответ «Тихо»</span>
               <h2>Наблюдайте, связывайте, поддерживайте себя</h2>
               <p>
                 Состояние, экран, дневник и близкие — в одном дизайне. Напоминания можно
                 отключить одним жестом; данные остаются вашими.
               </p>
-            </div>
+            </PlStagger>
           </div>
         </div>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 4 — полноэкранное демо ===== */}
-      <section id="pl-4" className="pl-block pl-block--demo">
+      <PlSection id="pl-4" className="pl-block pl-block--demo" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">04</span> / 07
         </div>
@@ -507,10 +568,10 @@ export default function ProductLanding() {
             )}
           </p>
         </div>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 5 — старый лендинг: опоры продукта + 4 шага (без лишних iframe) ===== */}
-      <section id="pl-5" className="pl-block pl-block--merge">
+      <PlSection id="pl-5" className="pl-block pl-block--merge" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">05</span> / 07
         </div>
@@ -521,8 +582,8 @@ export default function ProductLanding() {
         </p>
 
         <div className="pl-merge-features">
-          {LEGACY_FEATURES.map((f) => (
-            <article key={f.title} className="pl-merge-card">
+          {LEGACY_FEATURES.map((f, i) => (
+            <PlStagger key={f.title} staticLanding={staticLanding} index={i} as="article" className="pl-merge-card">
               <div className="pl-merge-card__icon" style={{ background: f.bg, color: f.color }}>
                 <f.icon size={24} strokeWidth={1.8} />
               </div>
@@ -533,17 +594,22 @@ export default function ProductLanding() {
                   {f.cta} <ArrowRight size={16} />
                 </button>
               </div>
-            </article>
+            </PlStagger>
           ))}
         </div>
 
         <div className="pl-merge-how">
-          <div className="pl-merge-how__media" data-theme="light">
+          <PlStagger
+            staticLanding={staticLanding}
+            index={0}
+            className="pl-merge-how__media"
+            data-theme="light"
+          >
             <div className="pl-merge-how__img">
               {wireframe ? <div className="pl-wire-slot pl-wire-slot--wide" /> : <img src={mascotPlan} alt="" />}
             </div>
-          </div>
-          <div className="pl-merge-how__copy">
+          </PlStagger>
+          <PlStagger staticLanding={staticLanding} index={1} className="pl-merge-how__copy">
             <span className="pl-kicker pl-kicker--accent">Как это работает</span>
             <h3 className="pl-merge-how__title">Четыре шага — и тревожность отступает</h3>
             <ol className="pl-merge-steps">
@@ -584,12 +650,12 @@ export default function ProductLanding() {
                 <Smartphone size={18} /> К демо на этом экране
               </a>
             </div>
-          </div>
+          </PlStagger>
         </div>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 6 — цитата ===== */}
-      <section id="pl-6" className="pl-block pl-block--quote">
+      <PlSection id="pl-6" className="pl-block pl-block--quote" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">06</span> / 07
         </div>
@@ -603,10 +669,10 @@ export default function ProductLanding() {
             <footer>команда «Тихо» · приватность по умолчанию</footer>
           </blockquote>
         </div>
-      </section>
+      </PlSection>
 
       {/* ===== БЛОК 7 — полоса CTA (legacy) + скачать + футер ===== */}
-      <section id="pl-7" className="pl-block pl-block--fin">
+      <PlSection id="pl-7" className="pl-block pl-block--fin" staticLanding={staticLanding}>
         <div className="pl-block__tag">
           <span className="pl-block__num">07</span> / 07
         </div>
@@ -656,14 +722,14 @@ export default function ProductLanding() {
         <footer className="pl-footer">
           <Logo to={homeLinkTo(wireframe)} inverse />
           <div className="pl-footer__links">
-            <Link to="/terms">Соглашение</Link>
-            <Link to="/privacy">Персональные данные</Link>
-            <Link to="/legacy">Первый лендинг</Link>
+            <Link to="/terms">Условия использования</Link>
+            <Link to="/privacy">Политика конфиденциальности</Link>
+            <Link to="/personal-data">Обработка персональных данных</Link>
             <a href={wireHash(wireframe, '#pl-4')}>Интерактивное демо</a>
           </div>
           <p className="pl-footer__copy">© 2026 «Тихо». Не заменяет консультацию специалиста.</p>
         </footer>
-      </section>
+      </PlSection>
     </div>
   )
 }
