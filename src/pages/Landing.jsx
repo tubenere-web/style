@@ -30,7 +30,7 @@ export default function Landing() {
           <Link to="/login" className="btn btn-ghost">
             Войти
           </Link>
-          <Link to="/onboarding" className="btn btn-primary">
+          <Link to="/onboarding/1" className="btn btn-primary">
             Начать бесплатно
             <ArrowRight size={18} />
           </Link>
@@ -59,7 +59,7 @@ export default function Landing() {
           </p>
 
           <div className="landing__cta">
-            <Link to="/onboarding" className="btn btn-primary btn-lg">
+            <Link to="/onboarding/1" className="btn btn-primary btn-lg">
               Пройти онбординг
               <ArrowRight size={20} />
             </Link>
@@ -251,7 +251,7 @@ export default function Landing() {
           </ol>
 
           <div className="landing__how-cta">
-            <Link to="/onboarding" className="btn btn-primary">
+            <Link to="/onboarding/1" className="btn btn-primary">
               Попробовать онбординг
               <ArrowRight size={18} />
             </Link>

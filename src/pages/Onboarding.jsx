@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -71,19 +70,30 @@ const steps = [
 ]
 
 export default function Onboarding() {
-  const [i, setI] = useState(0)
   const navigate = useNavigate()
+  const { step: stepParam } = useParams()
+  const stepNum = Number.parseInt(String(stepParam), 10)
+  const invalid =
+    !Number.isFinite(stepNum) || stepNum < 1 || stepNum > steps.length
+
+  if (invalid) {
+    return <Navigate to="/onboarding/1" replace />
+  }
+
+  const i = stepNum - 1
   const step = steps[i]
   const last = i === steps.length - 1
 
+  const goToStep = (idx) => navigate(`/onboarding/${idx + 1}`)
+
   const next = () => {
     if (last) navigate('/register')
-    else setI((v) => v + 1)
+    else goToStep(i + 1)
   }
 
   const prev = () => {
     if (i === 0) navigate('/')
-    else setI((v) => v - 1)
+    else goToStep(i - 1)
   }
 
   return (
@@ -111,7 +121,7 @@ export default function Onboarding() {
               className={`onb__pip ${idx === i ? 'active' : ''} ${
                 idx < i ? 'done' : ''
               }`}
-              onClick={() => setI(idx)}
+              onClick={() => goToStep(idx)}
               aria-label={`Перейти на шаг ${idx + 1}`}
             >
               <span>{idx + 1}</span>
