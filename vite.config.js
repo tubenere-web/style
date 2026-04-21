@@ -1,4 +1,4 @@
-import { copyFileSync } from 'node:fs'
+import { copyFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => ({
       closeBundle() {
         const dist = resolve(__dirname, 'dist')
         copyFileSync(resolve(dist, 'index.html'), resolve(dist, '404.html'))
+        writeFileSync(resolve(dist, '.nojekyll'), '')
       },
     },
   ],

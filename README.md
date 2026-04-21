@@ -17,8 +17,14 @@ npm run dev
 
 ## GitHub Pages
 
-Сайт после деплоя: **https://tubenere-web.github.io/style/**
+Сайт: **https://tubenere-web.github.io/style/**
 
-В репозитории на GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. После push в `main` workflow собирает проект и публикует папку `dist`. Первый запуск может занять 1–2 минуты; статус — вкладка **Actions**.
+При публикации **из корня ветки `main`** GitHub отдаёт исходный `index.html` с путём `/src/main.jsx` (это только для `npm run dev`), поэтому страница **пустая**. Нужна **сборка** в `dist/` и публикация **не из main**.
 
-Локально проверить прод-сборку с тем же `base`, что и на Pages: `npm run build` и `npm run preview`.
+1. **Settings → Pages → Build and deployment**
+2. **Source:** *Deploy from a branch*
+3. **Branch:** `gh-pages`, folder **/ (root)** — сохранить.
+
+После каждого push в `main` workflow **Deploy GitHub Pages** собирает проект и обновляет ветку `gh-pages` содержимым `dist/`. Статус — вкладка **Actions** (1–2 минуты).
+
+Локально проверить прод: `npm run build` и `npm run preview`.
