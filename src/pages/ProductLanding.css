@@ -31,7 +31,8 @@
     radial-gradient(ellipse 80% 50% at 20% -10%, rgba(123, 111, 214, 0.45), transparent 55%),
     radial-gradient(ellipse 60% 45% at 95% 10%, rgba(126, 200, 168, 0.2), transparent 50%),
     radial-gradient(ellipse 50% 40% at 40% 100%, rgba(232, 164, 188, 0.12), transparent 45%);
-  animation: pl-aurora 22s ease-in-out infinite alternate;
+  /* отключено для статичного экспорта (Figma и т.д.) */
+  animation: none;
   z-index: 0;
 }
 
@@ -843,7 +844,9 @@
   justify-self: center;
   margin-top: -40px;
   color: var(--pl-dim);
-  animation: pl-bounce 2.4s ease-in-out infinite;
+  /* отключено для статичного экспорта */
+  animation: none;
+  opacity: 1;
 }
 
 @keyframes pl-bounce {

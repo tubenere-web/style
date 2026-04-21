@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight,
   Activity,
@@ -22,14 +21,7 @@ import { mascotEmotion, mascotPlan } from '../assets/illustrations.js'
 import { appUrl } from '../utils/appUrl.js'
 import './ProductLanding.css'
 
-const ease = [0.16, 1, 0.3, 1]
-
-const fadeUp = {
-  initial: { opacity: 0, y: 36 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.7, ease },
-}
+/** Временно без анимаций появления — статичный контент для экспорта (Figma html-to-design и т.п.). */
 
 const DEMO_TABS = [
   { id: 'dash', label: 'Главная', seg: 'dashboard' },
@@ -214,26 +206,21 @@ export default function ProductLanding() {
           <span className="pl-block__num">01</span> / 07
         </div>
         <div className="pl-hero pl-hero--grid">
-          <motion.div
-            className="pl-hero__copy"
-            initial="hidden"
-            animate="show"
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.06 } } }}
-          >
-            <motion.div className="pl-hero__ribbon" variants={childFade}>
+          <div className="pl-hero__copy">
+            <div className="pl-hero__ribbon">
               <Sparkles size={14} strokeWidth={2} /> мягкая цифровая гигиена
-            </motion.div>
-            <motion.h1 id="pl-h1" variants={childFade}>
+            </div>
+            <h1 id="pl-h1">
               Заметь, что чувствуешь
               <br />
               <span className="pl-hero__accent">без стыда за экран</span>
-            </motion.h1>
-            <motion.p className="pl-hero__lede" variants={childFade}>
+            </h1>
+            <p className="pl-hero__lede">
               Тихо — мягкий сервис против цифровой тревожности: настроение, экранное время, дневник
               и близкие в одном месте. Ниже — бумажный визуал и одно демо; путь знакомства — через
               онбординг и обратно сюда.
-            </motion.p>
-            <motion.ul className="pl-hero__meta" variants={childFade}>
+            </p>
+            <ul className="pl-hero__meta">
               <li>
                 <strong>8 мин</strong>
                 <span>в день на осознанность</span>
@@ -246,8 +233,8 @@ export default function ProductLanding() {
                 <strong>12 300</strong>
                 <span>человек в дневниках</span>
               </li>
-            </motion.ul>
-            <motion.div className="pl-hero__stores" variants={childFade}>
+            </ul>
+            <div className="pl-hero__stores">
               <a className="pl-store pl-store--apple" href={STORE.apple} target="_blank" rel="noreferrer">
                 <span className="pl-store__icon" aria-hidden />
                 <span className="pl-store__txt">
@@ -262,32 +249,22 @@ export default function ProductLanding() {
                   Google Play
                 </span>
               </a>
-            </motion.div>
-            <motion.div className="pl-hero__subcta" variants={childFade}>
+            </div>
+            <div className="pl-hero__subcta">
               <a href="#pl-4" className="pl-btn pl-btn--ghost">
                 <Monitor size={18} /> К полноэкранному демо
               </a>
               <Link to="/onboarding/1" className="pl-btn pl-btn--line">
                 Онбординг <ExternalLink size={16} />
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            className="pl-hero__viz"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease, delay: 0.1 }}
-          >
+          <div className="pl-hero__viz">
             <div className="pl-hero__orb" />
             <div className="pl-hero__rings">
               {[0, 1, 2].map((i) => (
-                <motion.span
-                  key={i}
-                  className="pl-hero__ring"
-                  animate={{ scale: [1, 1.07, 1], opacity: [0.35, 0.7, 0.35] }}
-                  transition={{ duration: 5 + i * 0.8, repeat: Infinity, ease: 'easeInOut', delay: i * 0.25 }}
-                />
+                <span key={i} className="pl-hero__ring" />
               ))}
             </div>
             <div className="pl-paper" data-theme="light">
@@ -325,42 +302,30 @@ export default function ProductLanding() {
                 </div>
               </div>
               <div className="pl-paper__chips">
-                <motion.div
-                  className="pl-paper-chip"
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                >
+                <div className="pl-paper-chip">
                   <Activity size={20} strokeWidth={1.9} />
                   <div>
                     <div className="pl-paper-chip__k">1 ч 42 мин</div>
                     <div className="pl-paper__muted">экран</div>
                   </div>
-                </motion.div>
-                <motion.div
-                  className="pl-paper-chip"
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                >
+                </div>
+                <div className="pl-paper-chip">
                   <Moon size={20} strokeWidth={1.9} />
                   <div>
                     <div className="pl-paper-chip__k">22:30</div>
                     <div className="pl-paper__muted">тихо</div>
                   </div>
-                </motion.div>
-                <motion.div
-                  className="pl-paper-chip"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                >
+                </div>
+                <div className="pl-paper-chip">
                   <Users size={18} strokeWidth={1.9} />
                   <div>
                     <div className="pl-paper-chip__k">Алёна + 3</div>
                     <div className="pl-paper__muted">рядом</div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <a href="#pl-2" className="pl-scroll" aria-label="Дальше">
@@ -373,9 +338,7 @@ export default function ProductLanding() {
         <div className="pl-block__tag">
           <span className="pl-block__num">02</span> / 07
         </div>
-        <motion.h2 className="pl-block__title" {...fadeUp}>
-          Цифры, которые не пугают
-        </motion.h2>
+        <h2 className="pl-block__title">Цифры, которые не пугают</h2>
         <p className="pl-block__lede">
           Наведи на карточку — она слегка приподнимается. Так же аккуратно приложение ведёт
           себя с вашими данными.
@@ -386,22 +349,14 @@ export default function ProductLanding() {
             { end: 24, suf: '', label: 'материала', sub: 'в библиотеке' },
             { end: 0, suf: '₽', label: 'рекламы', sub: 'внутри интерфейса' },
             { end: 100, suf: '%', label: 'контроля', sub: 'над своими данными' },
-          ].map((s, i) => (
-            <motion.div
-              key={s.label}
-              className="pl-stat-card"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.55, ease }}
-              whileHover={{ scale: 1.03, y: -6 }}
-            >
+          ].map((s) => (
+            <div key={s.label} className="pl-stat-card">
               <div className="pl-stat-card__value">
                 <AnimatedNumber end={s.end} suffix={s.suf} />
               </div>
               <div className="pl-stat-card__label">{s.label}</div>
               <div className="pl-stat-card__sub">{s.sub}</div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -412,32 +367,24 @@ export default function ProductLanding() {
           <span className="pl-block__num">03</span> / 07
         </div>
         <div className="pl-story">
-          <motion.div className="pl-story__grid" {...fadeUp}>
-            <motion.div
-              className="pl-story__card pl-story__card--problem"
-              whileHover={{ y: -5 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            >
+          <div className="pl-story__grid">
+            <div className="pl-story__card pl-story__card--problem">
               <span className="pl-kicker">Проблема</span>
               <h2>Лента съедает внимание — тревога приходит незаметно</h2>
               <p>
                 Таймеры винят; психолог не всегда онлайн. Нужен ежедневный слой между вами и
                 телефоном — без шума и давления.
               </p>
-            </motion.div>
-            <motion.div
-              className="pl-story__card pl-story__card--solve"
-              whileHover={{ y: -5 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            >
+            </div>
+            <div className="pl-story__card pl-story__card--solve">
               <span className="pl-kicker pl-kicker--accent">Ответ «Тихо»</span>
               <h2>Наблюдайте, связывайте, поддерживайте себя</h2>
               <p>
                 Состояние, экран, дневник и близкие — в одном дизайне. Напоминания можно
                 отключить одним жестом; данные остаются вашими.
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -446,14 +393,14 @@ export default function ProductLanding() {
         <div className="pl-block__tag">
           <span className="pl-block__num">04</span> / 07
         </div>
-        <motion.div className="pl-demo__head" {...fadeUp}>
+        <div className="pl-demo__head">
           <span className="pl-kicker pl-kicker--accent">Интерактив</span>
           <h2 className="pl-block__title">Одно окно — весь клиент</h2>
           <p className="pl-block__lede">
             Одно место для интерактива: тот же веб-клиент, что и «настройки» в демо. Переключайте
             разделы вкладками и работайте внутри iframe — без лишних вставок по всей странице.
           </p>
-        </motion.div>
+        </div>
 
         <div className="pl-tabs">
           {DEMO_TABS.map((t) => (
@@ -468,13 +415,7 @@ export default function ProductLanding() {
           ))}
         </div>
 
-        <motion.div
-          className="pl-devices"
-          key={`${demo}-${narrowDemo ? 'm' : 'd'}`}
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.35 }}
-        >
+        <div className="pl-devices" key={`${demo}-${narrowDemo ? 'm' : 'd'}`}>
           {narrowDemo ? (
             <div className="pl-devices__grid pl-devices__grid--single">
               <div className="pl-phone pl-phone--demo">
@@ -520,7 +461,7 @@ export default function ProductLanding() {
               </>
             )}
           </p>
-        </motion.div>
+        </div>
       </section>
 
       {/* ===== БЛОК 5 — старый лендинг: опоры продукта + 4 шага (без лишних iframe) ===== */}
@@ -528,25 +469,15 @@ export default function ProductLanding() {
         <div className="pl-block__tag">
           <span className="pl-block__num">05</span> / 07
         </div>
-        <motion.h2 className="pl-block__title" {...fadeUp}>
-          Четыре опоры и четыре шага
-        </motion.h2>
+        <h2 className="pl-block__title">Четыре опоры и четыре шага</h2>
         <p className="pl-block__lede pl-block__lede--narrow">
           Единственный живой интерфейс на странице — в блоке «Демо» выше (тот же маршрут, что в
           приложении, но без обхода онбординга к кабинету). Ниже — только сценарии и кнопка в демо.
         </p>
 
         <div className="pl-merge-features">
-          {LEGACY_FEATURES.map((f, i) => (
-            <motion.article
-              key={f.title}
-              className="pl-merge-card"
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: i * 0.06, duration: 0.55, ease }}
-              whileHover={{ y: -4 }}
-            >
+          {LEGACY_FEATURES.map((f) => (
+            <article key={f.title} className="pl-merge-card">
               <div className="pl-merge-card__icon" style={{ background: f.bg, color: f.color }}>
                 <f.icon size={24} strokeWidth={1.8} />
               </div>
@@ -557,7 +488,7 @@ export default function ProductLanding() {
                   {f.cta} <ArrowRight size={16} />
                 </button>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
 
@@ -617,7 +548,7 @@ export default function ProductLanding() {
         <div className="pl-block__tag">
           <span className="pl-block__num">06</span> / 07
         </div>
-        <motion.div className="pl-quote__box" {...fadeUp}>
+        <div className="pl-quote__box">
           <Heart className="pl-quote__icon" size={32} strokeWidth={1.5} />
           <blockquote>
             <p>
@@ -626,7 +557,7 @@ export default function ProductLanding() {
             </p>
             <footer>команда «Тихо» · приватность по умолчанию</footer>
           </blockquote>
-        </motion.div>
+        </div>
       </section>
 
       {/* ===== БЛОК 7 — полоса CTA (legacy) + скачать + футер ===== */}
@@ -634,7 +565,7 @@ export default function ProductLanding() {
         <div className="pl-block__tag">
           <span className="pl-block__num">07</span> / 07
         </div>
-        <motion.div className="pl-cta-band" {...fadeUp}>
+        <div className="pl-cta-band">
           <div className="pl-cta-band__copy">
             <h2 className="pl-cta-band__title">Начни с одного вечера без тревоги</h2>
             <p>
@@ -648,9 +579,9 @@ export default function ProductLanding() {
               Пройти онбординг <ArrowRight size={18} />
             </Link>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div className="pl-download__inner" {...fadeUp}>
+        <div className="pl-download__inner">
           <h2>Скачать в сторы</h2>
           <p>Бесплатная точка входа. Живой клиент на этой странице — только в блоке демо ниже.</p>
           <div className="pl-download__stores">
@@ -675,7 +606,7 @@ export default function ProductLanding() {
               <ArrowRight size={18} />
             </Link>
           </div>
-        </motion.div>
+        </div>
 
         <footer className="pl-footer">
           <Logo to="/" inverse />
@@ -692,34 +623,10 @@ export default function ProductLanding() {
   )
 }
 
-const childFade = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
-}
-
 function AnimatedNumber({ end, suffix }) {
-  const [v, setV] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-30%' })
-
-  useEffect(() => {
-    if (!isInView) return
-    let raf
-    const dur = 1400
-    const t0 = performance.now()
-    const tick = (now) => {
-      const p = Math.min(1, (now - t0) / dur)
-      const easeOut = 1 - (1 - p) ** 3
-      setV(Math.round(end * easeOut))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [isInView, end])
-
   return (
-    <span ref={ref}>
-      {v}
+    <span>
+      {end}
       {suffix}
     </span>
   )
