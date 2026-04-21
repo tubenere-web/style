@@ -15,16 +15,17 @@ npm run dev
 
 [github.com/tubenere-web/style](https://github.com/tubenere-web/style)
 
-## GitHub Pages
+## Vercel (рекомендуется)
 
-Сайт: **https://tubenere-web.github.io/style/**
+Подключи репозиторий на [vercel.com](https://vercel.com): фреймворк **Vite**, команда сборки `npm run build`, каталог **`dist`**. Переменные окружения не обязательны — в проде используется корень сайта (`base: '/'`). Файл **`vercel.json`** задаёт SPA-роутинг.
 
-При публикации **из корня ветки `main`** GitHub отдаёт исходный `index.html` с путём `/src/main.jsx` (это только для `npm run dev`), поэтому страница **пустая**. Нужна **сборка** в `dist/` и публикация **не из main**.
+После деплоя сайт будет на `*.vercel.app` или на своём домене.
 
-1. **Settings → Pages → Build and deployment**
-2. **Source:** *Deploy from a branch*
-3. **Branch:** `gh-pages`, folder **/ (root)** — сохранить.
+## GitHub Pages (альтернатива)
 
-После каждого push в `main` workflow **Deploy GitHub Pages** собирает проект и обновляет ветку `gh-pages` содержимым `dist/`. Статус — вкладка **Actions** (1–2 минуты).
+Сайт: `https://tubenere-web.github.io/style/` — в workflow при сборке задаётся `VITE_BASE_PATH=/style`.
 
-Локально проверить прод: `npm run build` и `npm run preview`.
+1. **Settings → Pages → Source:** ветка **`gh-pages`**, папка **`/ (root)`** (не корень `main`).
+2. Push в `main` запускает workflow и обновляет `gh-pages`.
+
+Локально прод без подпути: `npm run build` и `npm run preview`.

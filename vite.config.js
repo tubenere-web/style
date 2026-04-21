@@ -6,9 +6,15 @@ import react from '@vitejs/plugin-react'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-// Production: github.com/tubenere-web/style → https://tubenere-web.github.io/style/
+/** По умолчанию `/` — Vercel и обычный хостинг. Для GitHub Pages проекта: `VITE_BASE_PATH=/style`. */
+function productionBase() {
+  const raw = process.env.VITE_BASE_PATH?.trim()
+  if (!raw) return '/'
+  return raw.endsWith('/') ? raw : `${raw}/`
+}
+
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/style/' : '/',
+  base: mode === 'production' ? productionBase() : '/',
   plugins: [
     react(),
     {
