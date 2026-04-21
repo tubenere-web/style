@@ -1,0 +1,431 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  width: var(--workspace-w);
+  max-width: 100%;
+  min-height: var(--workspace-h);
+  margin: 0 auto;
+  background: transparent;
+}
+
+.app-topbar__logo,
+.app-tabbar {
+  display: none;
+}
+
+/* ================= САЙДБАР ================= */
+.app-sidebar {
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  border-right: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-alt) 100%);
+  position: sticky;
+  top: 0;
+  min-height: var(--workspace-h);
+}
+
+.app-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr), transform var(--tr-fast);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  transform: translateX(2px);
+}
+
+.nav-item:active {
+  background: var(--surface-alt);
+  transform: translateX(0);
+}
+
+.nav-item--active {
+  background: linear-gradient(100deg, var(--primary-soft), var(--accent-soft));
+  color: var(--text);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-item--active:hover {
+  transform: translateX(0);
+}
+
+.nav-item--muted {
+  font-size: var(--fs-sm);
+  padding: 10px 16px;
+}
+
+.app-sidebar__bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.app-sidebar__card {
+  margin-top: var(--space-4);
+  padding: var(--space-5);
+  background: linear-gradient(155deg, var(--primary) 0%, var(--accent) 140%);
+  border-radius: var(--radius-lg);
+  color: #fff;
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-sidebar__card::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.app-sidebar__card-title {
+  font-weight: 700;
+  font-size: var(--fs-base);
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.app-sidebar__card-sub {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.dot-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+  margin-top: 6px;
+  position: relative;
+}
+
+.dot-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: softPulse 2.4s infinite;
+}
+
+/* ================= ТОПБАР ================= */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.app-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: saturate(1.1);
+}
+
+.app-topbar__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.icon-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--tr), background var(--tr), color var(--tr);
+}
+
+.icon-btn:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.icon-btn:active {
+  background: var(--surface-alt);
+}
+
+.icon-btn--quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-muted);
+}
+.icon-btn--quiet:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.icon-btn__dot {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: var(--coral);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--surface);
+}
+
+.app-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px 6px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color var(--tr), background var(--tr);
+}
+
+.app-user:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.app-user:active {
+  background: var(--surface-alt);
+}
+
+.app-user__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lavender), var(--primary));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.app-user__meta {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.app-user__name {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.app-user__role {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ================= КОНТЕНТ ================= */
+.app-content {
+  padding: var(--space-10) var(--space-12);
+  flex: 1;
+  min-height: calc(var(--workspace-h) - 82px);
+}
+
+/* ============================================================
+   ТАБЛЕТ: < 1200px — сайдбар уходит, навигация снизу
+   ============================================================ */
+@media (max-width: 1199px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .app-sidebar {
+    display: none;
+  }
+
+  .app-topbar {
+    padding: 16px 28px;
+    gap: 14px;
+  }
+
+  .app-topbar__logo {
+    display: inline-flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .app-content {
+    padding: 32px 40px 120px;
+    min-height: auto;
+  }
+
+  .app-tabbar {
+    display: grid;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+    z-index: 20;
+    margin-top: auto;
+  }
+
+  .app-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--tr), background var(--tr);
+  }
+
+  .app-tab:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+  }
+
+  .app-tab:active {
+    background: var(--surface-alt);
+  }
+
+  .app-tab--active {
+    color: var(--primary);
+    background: var(--primary-soft);
+  }
+}
+
+/* ============================================================
+   УЗКИЙ ПЛАНШЕТ: < 900px — user-meta, день/ночь → иконка
+   ============================================================ */
+@media (max-width: 899px) {
+  .app-topbar {
+    padding: 14px 20px;
+  }
+
+  .app-topbar__right {
+    gap: 8px;
+  }
+
+  .app-user__meta {
+    display: none;
+  }
+
+  .app-user {
+    padding: 4px;
+    border-radius: 50%;
+  }
+
+  .app-logout {
+    display: none;
+  }
+
+  .app-content {
+    padding: 24px 20px 120px;
+  }
+}
+
+/* ============================================================
+   МОБИЛКА: < 640px
+   ============================================================ */
+@media (max-width: 639px) {
+  .app-topbar {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  .app-topbar__logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .app-topbar__right {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .app-content {
+    padding: 20px 16px 120px;
+  }
+
+  .app-user__avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .app-tab span {
+    font-size: 11px;
+  }
+
+  .app-tabbar {
+    grid-template-columns: repeat(5, 1fr);
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .app-tab {
+    padding: 6px 2px;
+  }
+}
+
+/* 375px и уже — подписи в tabbar могут обрезаться, оставляем иконки */
+@media (max-width: 390px) {
+  .app-tab span {
+    font-size: 10.5px;
+    letter-spacing: -0.01em;
+  }
+
+  .app-topbar {
+    padding: 10px 12px;
+  }
+}

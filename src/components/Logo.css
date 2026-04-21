@@ -1,0 +1,73 @@
+.logo-link {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+}
+
+.logo__mark {
+  width: 40px;
+  height: 40px;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+  padding: 6px;
+  transition: transform var(--tr);
+}
+
+.logo-link:hover .logo__mark {
+  transform: rotate(-6deg);
+}
+
+.logo__text {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 2px;
+}
+
+.logo__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+
+.logo__sub {
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.logo--sm .logo__mark {
+  width: 32px;
+  height: 32px;
+}
+.logo--sm .logo__name {
+  font-size: 18px;
+}
+
+.logo--lg .logo__mark {
+  width: 52px;
+  height: 52px;
+}
+.logo--lg .logo__name {
+  font-size: 28px;
+}
+
+.logo--inverse .logo__name,
+.logo--inverse .logo__sub {
+  color: #fff;
+}

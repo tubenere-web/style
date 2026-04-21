@@ -1,0 +1,334 @@
+.friends-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.friend-card {
+  padding: 20px 22px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all var(--tr);
+}
+
+.friend-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.friend-card__top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.friend-card__top strong {
+  display: block;
+  color: var(--text);
+  font-size: var(--fs-md);
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+.friend-card__top .muted {
+  font-size: var(--fs-sm);
+}
+
+.avatar--lg {
+  width: 54px;
+  height: 54px;
+  font-size: 16px;
+}
+
+.friend-card__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.friend-card__stat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+}
+
+.friend-card__stat-label {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.friend-card__stat-value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  text-align: right;
+  min-width: 0;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.friend-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.friend-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--tr), border-color var(--tr), transform var(--tr), color var(--tr);
+  text-align: left;
+}
+
+.friend-card__btn svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.friend-card__btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.friend-card__btn:hover svg {
+  color: var(--primary);
+}
+
+.friend-card__btn:active {
+  transform: translateY(1px);
+}
+
+.friend-card__btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Requests */
+.req-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.req-list li {
+  display: grid;
+  grid-template-columns: 44px 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+.req-list strong {
+  display: block;
+  color: var(--text);
+  font-size: var(--fs-base);
+  margin-bottom: 2px;
+}
+
+.req-list .muted {
+  font-size: var(--fs-sm);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px;
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+  border: 1px dashed var(--border-strong);
+}
+
+.empty-state h4 {
+  font-size: var(--fs-md);
+}
+
+.empty-state p {
+  max-width: 420px;
+  line-height: 1.55;
+}
+
+/* Aside */
+.rituals {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Ряд 1: иконка | заголовок. Ряд 2: описание на всю ширину. Ряд 3: статус на всю ширину */
+.rituals .ritual {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+  align-items: start;
+}
+
+.ritual__title {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--text);
+  line-height: var(--lh-snug);
+  align-self: center;
+  min-width: 0;
+}
+
+.ritual__text {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  width: 100%;
+}
+
+.ritual__icon {
+  grid-column: 1;
+  grid-row: 1;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ritual__icon--accent {
+  background: color-mix(in oklab, var(--primary) 16%, var(--surface) 84%);
+  color: var(--primary);
+}
+
+.ritual__icon--lavender {
+  background: color-mix(in oklab, var(--lavender) 18%, var(--surface) 82%);
+  color: var(--lavender);
+}
+
+.ritual__icon--neutral {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+}
+
+.ritual__status {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+/* Как у .badge в шапке: 6px 12px, не «высокая плашка» */
+.ritual__status.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  text-align: center;
+  min-height: 0;
+}
+
+.friends__photo {
+  height: 160px;
+}
+
+.friends__rule {
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-strong);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+.friends__rule strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: var(--fs-base);
+}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width: 1199px) {
+  .friends-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 899px) {
+  .friends-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .friend-card {
+    padding: 18px 18px;
+  }
+
+  .req-list li {
+    grid-template-columns: 44px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .req-list li .btn {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .friend-card__stat {
+    gap: 12px;
+  }
+
+  .friend-card__stat-value {
+    font-size: var(--fs-base);
+  }
+}

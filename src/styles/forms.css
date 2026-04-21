@@ -1,0 +1,101 @@
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon > svg:first-child {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input-with-icon input {
+  padding-left: 46px;
+}
+
+.input-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--tr), color var(--tr);
+}
+
+.input-eye:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.input-eye:active {
+  background: var(--surface-alt);
+}
+
+.pwd-strength {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.pwd-strength__bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.pwd-strength__bars span {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+  transition: background var(--tr);
+}
+
+.pwd-strength__bars span.on {
+  background: var(--accent);
+}
+
+.pwd-strength__bars span.on:nth-child(1) ~ span.on:nth-child(2) {
+  background: var(--primary);
+}
+
+.info-block {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  border: 1px solid color-mix(in oklab, var(--primary) 22%, transparent);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+.info-block--soft {
+  background: var(--accent-soft);
+  border-color: color-mix(in oklab, var(--accent) 25%, transparent);
+}
+
+.info-block h4 {
+  font-size: var(--fs-base);
+  margin-bottom: 8px;
+}
+
+.info-block ol,
+.info-block ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

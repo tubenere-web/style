@@ -1,0 +1,111 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 6px 10px 6px 16px;
+  cursor: pointer;
+  transition: border-color var(--tr), background var(--tr), box-shadow var(--tr);
+  user-select: none;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.theme-toggle:active {
+  transform: translateY(1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.theme-toggle__label {
+  display: inline-flex;
+  gap: 10px;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.theme-toggle__label span {
+  transition: color var(--tr);
+}
+
+.theme-toggle__label span.active {
+  color: var(--text);
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 58px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--primary-soft), var(--accent-soft));
+  flex-shrink: 0;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle--compact {
+  padding: 6px;
+}
+
+.theme-toggle--compact .theme-toggle__label {
+  display: none;
+}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width: 899px) {
+  .theme-toggle {
+    padding: 4px;
+    gap: 0;
+  }
+
+  .theme-toggle__label {
+    display: none;
+  }
+
+  .theme-toggle__track {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  .theme-toggle__thumb {
+    position: static;
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    color: var(--text);
+    box-shadow: none;
+    transform: none !important;
+  }
+
+  .theme-toggle__thumb svg {
+    width: 20px;
+    height: 20px;
+  }
+}
