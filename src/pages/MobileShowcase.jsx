@@ -30,8 +30,8 @@ export default function MobileShowcase() {
           <Link to="/" className="link-btn">
             <ArrowLeft size={16} /> На главную
           </Link>
-          <Link to="/app/dashboard" className="link-btn">
-            Десктопная версия
+          <Link to="/#pl-4" className="link-btn">
+            Интерактивное демо
           </Link>
         </nav>
         <ThemeToggle />

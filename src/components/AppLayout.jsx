@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate, Navigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   Activity,
@@ -14,6 +14,7 @@ import { motion } from 'framer-motion'
 import Logo from './Logo.jsx'
 import ThemeToggle from './ThemeToggle.jsx'
 import './AppLayout.css'
+import { clearAppSession, hasAppSession, isAppEmbedded } from '../utils/appSession.js'
 
 const navItems = [
   { to: '/app/dashboard', label: 'Главная', short: 'главная', icon: LayoutDashboard },
@@ -25,6 +26,10 @@ const navItems = [
 
 export default function AppLayout() {
   const navigate = useNavigate()
+
+  if (!isAppEmbedded() && !hasAppSession()) {
+    return <Navigate to="/onboarding/1" replace />
+  }
 
   return (
     <div className="app-root app-layout">
@@ -104,7 +109,10 @@ export default function AppLayout() {
             <button
               className="icon-btn icon-btn--quiet app-logout"
               aria-label="Выйти"
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                clearAppSession()
+                navigate('/')
+              }}
             >
               <LogOut size={19} strokeWidth={1.8} />
             </button>

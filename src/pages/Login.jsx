@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react'
 import AuthShell from '../components/AuthShell.jsx'
+import { setAppSession } from '../utils/appSession.js'
 
 export default function Login() {
   const [show, setShow] = useState(false)
@@ -22,6 +23,7 @@ export default function Login() {
         className="auth__form"
         onSubmit={(e) => {
           e.preventDefault()
+          setAppSession()
           navigate('/app/dashboard')
         }}
       >

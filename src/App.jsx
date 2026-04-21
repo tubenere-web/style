@@ -6,6 +6,7 @@ import AppLayout from './components/AppLayout.jsx'
 import useNbspTypography from './hooks/useNbspTypography.js'
 
 import Landing from './pages/Landing.jsx'
+import LegacyLanding from './pages/LegacyLanding.jsx'
 import Onboarding from './pages/Onboarding.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
@@ -32,6 +33,7 @@ export default function App() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Landing />} />
+        <Route path="/legacy" element={<LegacyLanding />} />
         <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
         <Route path="/onboarding/:step" element={<Onboarding />} />
         <Route path="/login" element={<Login />} />

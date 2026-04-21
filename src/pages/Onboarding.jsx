@@ -87,7 +87,7 @@ export default function Onboarding() {
   const goToStep = (idx) => navigate(`/onboarding/${idx + 1}`)
 
   const next = () => {
-    if (last) navigate('/register')
+    if (last) navigate('/')
     else goToStep(i + 1)
   }
 
@@ -107,8 +107,8 @@ export default function Onboarding() {
         <Logo />
         <div className="onb__header-right">
           <ThemeToggle />
-          <Link to="/login" className="link-btn">
-            Пропустить и войти
+          <Link to="/" className="link-btn">
+            На главную
           </Link>
         </div>
       </header>
@@ -159,7 +159,7 @@ export default function Onboarding() {
                   {i === 0 ? 'На главную' : 'Назад'}
                 </button>
                 <button className="btn btn-primary btn-lg" onClick={next}>
-                  {last ? 'Создать аккаунт' : 'Дальше'}
+                  {last ? 'На главную' : 'Дальше'}
                   <ArrowRight size={20} />
                 </button>
               </div>
@@ -186,8 +186,8 @@ export default function Onboarding() {
 
       <footer className="onb__footer">
         <span className="muted">{`${i + 1} из ${steps.length}`}</span>
-        <Link to="/login" className="muted onb__footer-skip">
-          Уже пользуешься? Войти
+        <Link to="/" className="muted onb__footer-skip">
+          На главную
         </Link>
       </footer>
     </motion.div>
