@@ -7,10 +7,13 @@ import './styles/global.css'
 import './styles/forms.css'
 import './pages/app/app-shared.css'
 
+const routerBasename =
+  import.meta.env.BASE_URL.replace(/\/$/, '') || undefined
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={routerBasename}>
         <App />
       </BrowserRouter>
     </ThemeProvider>
