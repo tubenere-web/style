@@ -29,3 +29,9 @@ npm run dev
 2. Push в `main` запускает workflow и обновляет `gh-pages`.
 
 Локально прод без подпути: `npm run build` и `npm run preview`.
+
+## Тема и экспорт в Figma (html-to-design и т.п.)
+
+Тема задаётся атрибутом `data-theme` на `<html>`. До загрузки React тема выставляется **скриптом в `index.html`**: `?theme=dark` или `?theme=light`, затем `localStorage`, затем **`prefers-color-scheme`** (системная тёмная тема).
+
+Для плагина, который не подхватывает тёмный вид: открой деплой с явным параметром, например `https://…vercel.app/?theme=dark`, и импортируй этот URL. Если среда плагина всегда считает тему «светлой», без `?theme=dark` тёмные токены не применятся.

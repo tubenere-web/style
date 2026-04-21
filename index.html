@@ -2,6 +2,29 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get('theme')
+          var t
+          if (q === 'dark' || q === 'light') {
+            t = q
+            try {
+              localStorage.setItem('tiho-theme', q)
+            } catch (e) {}
+          } else {
+            var s = localStorage.getItem('tiho-theme')
+            if (s === 'dark' || s === 'light') t = s
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark'
+            else t = 'light'
+          }
+          document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light')
+        }
+      })()
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Тихо — сервис для отслеживания цифровой тревожности, дневника эмоций и поддержки привычек осознанного экранного времени." />

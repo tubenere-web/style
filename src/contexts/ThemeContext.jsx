@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { applyThemeToDocument, getInitialTheme } from '../utils/themeStorage.js'
 
 const ThemeContext = createContext({
   theme: 'light',
@@ -7,13 +8,10 @@ const ThemeContext = createContext({
 })
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return 'light'
-    return localStorage.getItem('tiho-theme') || 'light'
-  })
+  const [theme, setTheme] = useState(() => getInitialTheme())
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
+    applyThemeToDocument(theme)
     localStorage.setItem('tiho-theme', theme)
   }, [theme])
 
